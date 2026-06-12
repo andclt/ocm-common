@@ -50,6 +50,14 @@ clean:
 		ocm-common \
 		$(NULL)
 
+.PHONY: generate
+generate: mocks
+
+.PHONY: mocks
+mocks:
+	@which mockgen > /dev/null || (echo "mockgen not found. Install with: go install go.uber.org/mock/mockgen@latest" && exit 1)
+	mockgen -source=pkg/rosa/ocmrole/core.go -destination=pkg/rosa/ocmrole/mock_aws_client.go -package=ocmrole AWSClientInterface
+
 .PHONY: validate-version
 validate-version:
 ifndef VERSION
