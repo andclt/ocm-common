@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+include boilerplate/generated-includes.mk
 
 # Ensure go modules are enabled:
 export GO111MODULE=on
@@ -107,3 +108,7 @@ release: validate-version
 	git tag -a -m 'Release $(VERSION)' $(VERSION)
 	git push upstream $(VERSION)
 	@echo "Release $(VERSION) created and pushed successfully!"
+
+.PHONY: boilerplate-update
+boilerplate-update:
+	@boilerplate/update
